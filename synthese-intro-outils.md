@@ -205,6 +205,7 @@ GitHub Actions permet l’automatisation complète du cycle CI/CD au sein de Git
 
 ### 🧱 Arborescence de GitHub Actions
 
+```zsh
 GitHub Actions
 ├── Workflows
 │ ├── Jobs
@@ -217,6 +218,7 @@ GitHub Actions
 │ ├── pull_request
 │ └── schedule
 └── GitHub Marketplace (pour trouver des actions)
+```
 
 # 📚 Conclusion
 
