@@ -205,7 +205,7 @@ GitHub Actions permet l’automatisation complète du cycle CI/CD au sein de Git
 
 ### 🧱 Arborescence de GitHub Actions
 
-```zsh
+```md
 GitHub Actions
 ├── Workflows
 │ ├── Jobs
