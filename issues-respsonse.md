@@ -1,27 +1,31 @@
 # Création d'un issue response
 
 ```yaml
-name: Issue Response
+name: issue-response
 
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
+
+permissions:
+  issues: write
 
 jobs:
   respond_to_issue:
     runs-on: ubuntu-latest
     steps:
-      - name: Send a response
+      - name: Envoie une réponse automatique à l'issue
         uses: actions/github-script@v6
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
+            const body = 'Merci pour votre issue ! Nous allons l\'examiner dès que possible. Si le problème est résolu, écrivez "close" dans un commentaire pour fermer l\'issue.';
+            await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Merci pour votre issue, notre équipe va se pencher dessus !'
-            })
+              issue_number: context.issue.number,
+              body,
+            });
 ```
 
 ## Explication du Fichier YAML
@@ -33,6 +37,7 @@ jobs:
 - **`steps`**: Les étapes à exécuter dans le job, utilisant ici `actions/github-script` pour exécuter un script permettant de commenter automatiquement la nouvelle issue.
 - **`github-token`**: Utilise le token `GITHUB_TOKEN` pour authentifier les actions avec GitHub.
 - **`script`**: Le script exécuté pour créer un commentaire sur l'issue, indiquant un message de prise en charge.
+- **`permissions`** : Cette section définit les permissions dont le workflow a besoin. Ici, issues: write signifie que le workflow peut écrire sur les issues, c’est-à-dire créer des commentaires, fermer des issues, etc. Cela permet au script d’interagir avec les issues via l’API GitHub.
 
 ## Testez
 
